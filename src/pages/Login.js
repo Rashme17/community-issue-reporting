@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+// src/pages/Login.js
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = () => {
+  const { login } = useAuth();
+  const [form, setForm] = useState({ username: "", password: "" });
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Send login request and store JWT
-    console.log('Login attempt:', { email, password });
+    if (!login(form.username, form.password)) {
+      alert("Invalid credentials");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 space-y-4">
-      <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full p-2 border" />
-      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="w-full p-2 border" />
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2">Login</button>
+    <form onSubmit={handleSubmit}>
+      <h2>Login</h2>
+      <input placeholder="Username" onChange={e => setForm({ ...form, username: e.target.value })} required />
+      <input type="password" placeholder="Password" onChange={e => setForm({ ...form, password: e.target.value })} required />
+      <button type="submit">Login</button>
     </form>
   );
-}
+};
+
+export default Login;

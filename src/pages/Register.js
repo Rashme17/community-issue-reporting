@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
+// src/pages/Register.js
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Register() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Register = () => {
+  const [form, setForm] = useState({ username: "", password: "", role: "user" });
+  const navigate = useNavigate();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Send register request
-    console.log('Registering:', { email, password });
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push(form);
+    localStorage.setItem("users", JSON.stringify(users));
+    navigate("/login");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 space-y-4">
-      <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full p-2 border" />
-      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="w-full p-2 border" />
-      <button type="submit" className="bg-green-500 text-white px-4 py-2">Register</button>
+    <form onSubmit={handleSubmit}>
+      <h2>Register</h2>
+      <input placeholder="Username" onChange={e => setForm({ ...form, username: e.target.value })} required />
+      <input type="password" placeholder="Password" onChange={e => setForm({ ...form, password: e.target.value })} required />
+      <select onChange={e => setForm({ ...form, role: e.target.value })}>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button type="submit">Register</button>
     </form>
   );
-}
+};
+
+export default Register;

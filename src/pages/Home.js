@@ -1,5 +1,11 @@
-import React from 'react';
+// src/pages/Home.js
+import React from "react";
 
-export default function Home() {
-  return <div className="p-4">Welcome to the Community Issue Reporting Platform</div>;
-}
+const Home = () => (
+  <div className="container">
+    <h1>Welcome to the Community Issue Reporting Platform</h1>
+    <p>Help your community by reporting civic issues.</p>
+  </div>
+);
+
+export default Home;
