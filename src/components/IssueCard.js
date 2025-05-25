@@ -3,21 +3,21 @@ import StatusBadge from "./StatusBadge";
 
 export default function IssueCard({ issue }) {
   return (
-    <div className="border rounded-lg p-4 shadow mb-6 bg-white max-w-3xl mx-auto">
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-        
+    <div className="issue-card border rounded-xl p-6 shadow-lg mb-6 bg-white max-w-4xl mx-auto transition hover:shadow-xl">
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-start">
+
         {/* ─── Image (Optional) ─── */}
         {issue.image && (
           <img
             src={issue.image}
             alt={issue.title}
-            className="w-full sm:w-48 h-auto max-h-48 object-cover rounded-md border"
+            className="w-32 h-32 object-cover rounded-md border"
           />
         )}
 
         {/* ─── Textual Details ─── */}
         <div className="flex-1">
-          <h2 className="text-xl font-semibold text-gray-800">{issue.title}</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-1">{issue.title}</h2>
           <p className="text-gray-700 mb-2">{issue.desc ?? issue.description}</p>
 
           {issue.category && (
